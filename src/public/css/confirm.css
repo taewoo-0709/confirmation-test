@@ -9,6 +9,7 @@
   margin-bottom: 40px;
   text-align: center;
   color: #a28f88;
+  font-family: 'Merriweather', serif;
 }
 
 .form {
@@ -25,6 +26,7 @@
 }
 
 .confirm-table__header {
+  font-family: 'Merriweather', serif;
   padding: 15px;
   width: 30%;
   border-bottom: 1px solid #e1dddf;
@@ -38,6 +40,7 @@
 }
 
 .confirm-table__text input[readonly] {
+  font-family: 'Merriweather', serif;
   color: #bca89a;
   width: 100%;
   outline: none;
@@ -56,6 +59,7 @@
 }
 
 .form__button-submit {
+  font-family: 'Merriweather', serif;
   padding: 10px;
   height: 45px;
   border: none;
@@ -66,6 +70,7 @@
 }
 
 .form__button-back {
+  font-family: 'Merriweather', serif;
   width: 50px;
   color: #827468;
   text-decoration: underline;

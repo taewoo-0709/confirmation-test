@@ -29,15 +29,6 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
-    }
-
     public function export(Request $request)
     {
         $contacts = Contact::with('category')
@@ -77,5 +68,14 @@ class AdminController extends Controller
     };
 
         return Response::stream($callback, 200, $headers);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

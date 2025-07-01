@@ -13,6 +13,7 @@ class ContactController extends Controller
     public function index()
     {
         $categories = Category::all();
+
         return view('index', compact('categories'));
     }
 

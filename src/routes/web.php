@@ -33,7 +33,7 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
 
     return redirect('/login');
-})->name('logout');
+    })->name('logout');
 
 
 Route::middleware('auth')->group(function () {

@@ -25,15 +25,15 @@
     <h2>Admin</h2>
   </div>
 
-<div class="admin-container">
-  <div class="admin-form__content">
-    <form class="admin-form" action="/admin" method="get">
-    @csrf
+  <div class="admin-container">
+    <div class="admin-form__content">
+      <form class="admin-form" action="/admin" method="get">
+      @csrf
       <div class="admin-form__row">
         <div class="admin-form__item">
           <input type="text" name="keyword" placeholder="名前やメールアドレスを入力してください" value="{{ request('keyword') }}">
         </div>
-        <div class="admin-form__item">
+        <div class="admin-form__item select-wrapper">
           <select class="custom-select" name="gender">
             <option value="">性別</option>
             <option value="all" {{ request('gender') == 'all' ? 'selected' : '' }}>全て</option>
@@ -42,7 +42,7 @@
             <option value="3" {{ request('gender') == '3' ? 'selected' : '' }}>その他</option>
           </select>
         </div>
-        <div class="admin-form__item">
+        <div class="admin-form__item select-wrapper">
           <select class="custom-select" name="category_id">
             <option value="">お問い合わせの種類</option>
             @foreach($categories as $category)
@@ -52,7 +52,7 @@
             @endforeach
           </select>
         </div>
-        <div class="admin-form__item">
+        <div class="admin-form__item select-wrapper">
           <input type="date" name="date" value="{{ request('date') }}">
         </div>
         <div class="admin-form__item">
@@ -66,22 +66,21 @@
   </div>
 </div>
 
-<!-- エクスポート -->
 <div class="admin-container">
   <div class="admin-functions">
     <form method="get" action="{{ route('admin.export') }}">
-  <input type="hidden" name="keyword" value="{{ request('keyword') }}">
-  <input type="hidden" name="category_id" value="{{ request('category_id') }}">
-  <input type="hidden" name="gender" value="{{ request('gender') }}">
-  <input type="hidden" name="date" value="{{ request('date') }}">
-    <button class="export-button">エクスポート</button>
-</form>
-  <div class="pagination-wrapper">
+      <input type="hidden" name="keyword" value="{{ request('keyword') }}">
+      <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+      <input type="hidden" name="gender" value="{{ request('gender') }}">
+      <input type="hidden" name="date" value="{{ request('date') }}">
+      <button class="export-button">エクスポート</button>
+    </form>
+    <div class="pagination-wrapper">
       {{ $contacts->links('vendor.pagination.custom') }}
     </div>
   </div>
 </div>
-<!-- テーブル -->
+
 <div class="admin-container">
   <div class="admin-table">
     <table class="admin-table__inner">
@@ -111,8 +110,8 @@
             <td class="admin-table__item">{{ $contact['email'] }}</td>
             <td class="admin-table__item">{{ $contact->category->content }}</td>
             <td class="admin-table__item">
-              <button class="detail-button" onclick="document.getElementById('modal-{{ $contact->id }}').style.display='block'">詳細</button>
-<!-- モーダル -->
+            <button class="detail-button" onclick="document.getElementById('modal-{{ $contact->id }}').style.display='block'">詳細</button>
+
             <div id="modal-{{ $contact->id }}" class="modal-overlay" style="display: none;">
               <div class="modal-content">
                 <button class="close-button" onclick="document.getElementById('modal-{{ $contact->id }}').style.display='none'">×</button>
@@ -137,32 +136,32 @@
                     <span class="modal-label">電話番号</span>
                     <span class="modal-value">{{ $contact['tel'] }}</span>
                   </div>
-                <div class="modal-row">
-                  <span class="modal-label">住所</span>
-                  <span class="modal-value">{{ $contact['address'] }}</span>
-                </div>
-                <div class="modal-row">
-                  <span class="modal-label">建物名</span>
-                  <span class="modal-value">{{ $contact['building'] }}</span>
-                </div>
-                <div class="modal-row">
-                  <span class="modal-label">お問い合わせの種類</span>
-                  <span class="modal-value">{{ $contact->category->content ?? '未設定' }}</span>
-                </div>
-                <div class="modal-row">
-                  <span class="modal-label">お問い合わせ内容</span>
-                  <span class="modal-value">{{ $contact['detail'] }}</span>
+                  <div class="modal-row">
+                    <span class="modal-label">住所</span>
+                    <span class="modal-value">{{ $contact['address'] }}</span>
                   </div>
                   <div class="modal-row">
-                  <form class="delete-data" action="/contacts/delete" method="post">
+                    <span class="modal-label">建物名</span>
+                    <span class="modal-value">{{ $contact['building'] }}</span>
+                  </div>
+                  <div class="modal-row">
+                    <span class="modal-label">お問い合わせの種類</span>
+                    <span class="modal-value">{{ $contact->category->content ?? '未設定' }}</span>
+                  </div>
+                  <div class="modal-row">
+                    <span class="modal-label">お問い合わせ内容</span>
+                    <span class="modal-value">{{ $contact['detail'] }}</span>
+                  </div>
+                  <div class="modal-row">
+                    <form class="delete-data" action="/contacts/delete" method="post">
                     @method ('DELETE')
                     @csrf
-                    <div class="delete-data__form">
-                      <input type="hidden" name="id" value="{{ $contact['id'] }}">
-                      <button class="data-delete__button">削除</button>
-                    </div>
-                  </form>
-                </div>
+                      <div class="delete-data__form">
+                        <input type="hidden" name="id" value="{{ $contact['id'] }}">
+                        <button class="data-delete__button">削除</button>
+                      </div>
+                    </form>
+                  </div>
               </div>
             </div>
             </td>
