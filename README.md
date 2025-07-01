@@ -28,4 +28,4 @@ Laravel環境構築
 
 ・開発環境：http://localhost/
 
-・phpMyAdmin：http://localhost:8080/index.php?route=/sql&pos=0&db=laravel_db&table=contacts
+・phpMyAdmin：http://localhost:8080/
