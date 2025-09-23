@@ -3,15 +3,19 @@
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Actions\Fortify\CustomLoginResponse;
+use App\Actions\Fortify\CustomRegisterResponse;
+use App\Http\Requests\CustomLoginRequest;
+use App\Http\Requests\RegisterRequest as CustomRegisterRequest;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
+use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyRegisterRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -28,31 +32,20 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->bind(FortifyRegisterRequest::class, CustomRegisterRequest::class);
+        $this->app->bind(FortifyLoginRequest::class, CustomLoginRequest::class);
+
         Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::registerView(function() {
-            return view('auth.register');
-        });
 
-        Fortify::loginView(function() {
-            return view('auth.login');
-        });
+        Fortify::registerView(fn() => view('auth.register'));
+        Fortify::loginView(fn() => view('auth.login'));
 
-        app()->singleton(
-        \Laravel\Fortify\Contracts\LoginResponse::class,
-        function () {
-            return new class implements \Laravel\Fortify\Contracts\LoginResponse {
-                public function toResponse($request)
-                {
-                    return redirect()->intended('/admin');
-                }
-            };
-        }
-    );
+        $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
+        $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
-
-            return Limit::perMinute(10)->by($email . $request->ip());
+            return Limit::perMinute(10)->by($email.$request->ip());
         });
     }
 }

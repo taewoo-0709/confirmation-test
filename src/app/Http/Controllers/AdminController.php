@@ -14,7 +14,18 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $contacts = Contact::with('category')->CategorySearch($request->category_id)->GenderSearch($request->gender)->KeywordSearch($request->keyword)->DateSearch($request->date)->paginate(7);
+        $contacts = Contact::with('category')
+        ->CategorySearch($request->category_id)
+        ->GenderSearch($request->gender)
+        ->KeywordSearch($request->keyword)
+        ->DateSearch($request->date)
+        ->paginate(7)
+        ->appends([
+            'keyword' => $request->keyword,
+            'gender' => $request->gender,
+            'category_id' => $request->category_id,
+            'date' => $request->date,
+        ]);
 
         $categories = Category::all();
 
@@ -57,7 +68,7 @@ class AdminController extends Controller
             fputcsv($file, [
                 $contact->last_name,
                 $contact->first_name,
-                $contact->gender === '1' ? '男性' : ($contact->gender === '2' ? '女性' : 'その他'),
+                $contact->gender === 1 ? '男性' : ($contact->gender === 2 ? '女性' : 'その他'),
                 $contact->email,
                 optional($contact->category)->content,
                 $contact->created_at->format('Y-m-d'),
