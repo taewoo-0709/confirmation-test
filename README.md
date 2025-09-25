@@ -3,6 +3,7 @@
 Dockerビルド
 
 1.  git clone git@github.com:taewoo-0709/confirmation-test.git
+
 *dataディレクトリは追跡を外しているため、作成してください。
 
 ２. docker-compose up -d --build
