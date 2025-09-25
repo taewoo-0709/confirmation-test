@@ -1,3 +1,7 @@
+body {
+  background-color: #f2ece7;
+}
+
 .header-nav {
   position: absolute;
   top: 50%;
@@ -22,8 +26,6 @@
 }
 
 .login-page {
-  background-color: #f2ece7;
-  min-height: 100vh;
   padding: 60px 0;
   display: flex;
   justify-content: center;
@@ -33,7 +35,7 @@
 .login-form__content {
   margin: 0;
   padding: 0;
-  max-width: 1230px;
+  min-width: 400px;
 }
 
 .login-form__header {
@@ -50,11 +52,10 @@
 
 .form {
   flex-direction: column;
-  margin: 0 auto;
   padding: 50px 70px;
-  margin: 0 100px;
+  margin: 0 auto;
   width: 500px;
-  height: 450px;
+  min-height: 450px;
   background-color: #fff;
   border-radius: 4px;
 }
@@ -122,4 +123,27 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .header-nav__link {
+    margin: 0 10px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .form {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .form__input--text {
+    width: 100%;
+  }
+
+  .form__button-submit {
+    padding: 10px 15px;
+    margin: 0 auto;
+    width: 40%;
+  }
 }

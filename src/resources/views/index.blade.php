@@ -18,16 +18,16 @@
         </div>
         <div class="form__group-content">
           <div class="form__input--text">
-            <input class="form__input last-name" type="text" name="last_name" placeholder="例:山田" value="{{ old('last_name') }}"/>
-            <input class="form__input first-name" type="text" name="first_name" placeholder="例:太郎" value="{{ old('first_name') }}"/>
-          </div>
-          <div class="form__error">
-            @error('last_name')
-              {{$message}}
-            @enderror
-            <div class="form__error">
-            @error('first_name')
-              {{ $message }}
+            <div class="form__input-wrapper">
+              <input class="form__input last-name" type="text" name="last_name" placeholder="例:山田" value="{{ old('last_name') }}"/>
+              @error('last_name')
+                <div class="form__error">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="form__input-wrapper">
+              <input class="form__input first-name" type="text" name="first_name" placeholder="例:太郎" value="{{ old('first_name') }}"/>
+              @error('first_name')
+                <div class="form__error">{{ $message }}</div>
               @enderror
             </div>
           </div>
@@ -75,9 +75,9 @@
         <div class="form__group-content">
           <div class="form__input--text">
             <input class="phone" type="tel" name="tel1" placeholder="例:080" value="{{ old('tel1') }}"/>
-              <span class="form__input--text">-</span>
-                <input class="phone" type="tel" name="tel2" placeholder="例:1234" value="{{ old('tel2') }}"/>
-              <span class="form__input--text">-</span>
+            <span class="hyphen">-</span>
+            <input class="phone" type="tel" name="tel2" placeholder="例:1234" value="{{ old('tel2') }}"/>
+            <span class="hyphen">-</span>
             <input class="phone" type="tel" name="tel3" placeholder="例:5678" value="{{ old('tel3') }}"/>
           </div>
           <div class="form__error">

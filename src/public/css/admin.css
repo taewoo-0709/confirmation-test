@@ -51,7 +51,7 @@
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 15px;
   box-sizing: border-box;
 }
 
@@ -59,13 +59,14 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .admin-form {
   display: flex;
   justify-content: center;
   width: 100%;
+  gap: 20px;
 }
 
 .admin-form__row {
@@ -260,6 +261,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
   margin-top: 30px;
   margin-bottom: 60px;
+  overflow-x: auto;
 }
 
 .admin-table__inner {
@@ -380,4 +382,82 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border: 1px solid #b9370e;
   border-radius: 3px;
   cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .admin-form__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .admin-form__item select[name="gender"],
+  .admin-form__item select[name="category_id"],
+  .admin-form__item input[type="date"] {
+    width: 100%;
+  }
+
+.admin-form__buttons {
+  width: 100%;
+  margin-left: 40px;
+}
+
+.admin-functions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .export-button {
+    padding: 8px 16px;
+    white-space: nowrap;
+  }
+
+  .pagination-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-form__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .admin-form__item select[name="gender"],
+  .admin-form__item select[name="category_id"],
+  .admin-form__item input[type="date"] {
+    width: 100%;
+  }
+
+.admin-form__buttons {
+  width: 100%;
+  margin-left: 40px;
+}
+
+.admin-functions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .export-button {
+    padding: 8px 16px;
+    white-space: nowrap;
+  }
+
+  .pagination-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
